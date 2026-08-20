@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pizza House | Pizzaria</title>
+  <meta name="description" content="Pizza House - Pizzas artesanais, saborosas e feitas com ingredientes selecionados.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #fffaf5;
+      color: #222;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #eee;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      height: 72px;
+      margin: auto;
+      padding: 0 25px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #d62828;
+    }
+
+    .logo span {
+      color: #222;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #d62828;
+    }
+
+    .header-button {
+      background: #d62828;
+      color: white;
+      padding: 11px 18px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .header-button:hover {
+      background: #b51f1f;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 650px;
+      padding: 140px 25px 80px;
+
+      display: flex;
+      align-items: center;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.75),
+          rgba(0, 0, 0, 0.35)
+        ),
+        url("https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=1800&q=80");
+
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-content {
+      width: 1200px;
+      margin: auto;
+      color: white;
+    }
+
+    .hero-content small {
+      color: #ffca3a;
+      font-weight: bold;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      max-width: 650px;
+      margin: 15px 0;
+      font-size: clamp(42px, 6vw, 70px);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      max-width: 550px;
+      color: #eee;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 24px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #d62828;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #b51f1f;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border: 1px solid white;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: #222;
+    }
+
+    /* SECTION */
+    section {
+      padding: 90px 25px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title span {
+      color: #d62828;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-title h2 {
+      margin-top: 8px;
+      font-size: 38px;
+      color: #222;
+    }
+
+    .section-title p {
+      max-width: 600px;
+      margin: 12px auto 0;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    /* CARDÁPIO */
+    .menu {
+      background: #fff;
+    }
+
+    .pizza-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .pizza-card {
+      background: white;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: 0.3s;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+    }
+
+    .pizza-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.09);
+    }
+
+    .pizza-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .pizza-info {
+      padding: 22px;
+    }
+
+    .pizza-info h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .pizza-info p {
+      color: #777;
+      line-height: 1.5;
+      font-size: 14px;
+      min-height: 42px;
+    }
+
+    .pizza-bottom {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .price {
+      color: #d62828;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .order {
+      background: #222;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .order:hover {
+      background: #d62828;
+    }
+
+    /* SOBRE */
+    .about {
+      background: #fff4e8;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    .about-text span {
+      color: #d62828;
+      font-weight: bold;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .about-text h2 {
+      font-size: 40px;
+      margin: 10px 0 18px;
+    }
+
+    .about-text p {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .feature {
+      background: white;
+      padding: 17px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .feature span {
+      color: #d62828;
+      margin-right: 5px;
+    }
+
+    /* PROMOÇÃO */
+    .promotion {
+      background: #d62828;
+      color: white;
+      text-align: center;
+    }
+
+    .promotion h2 {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .promotion p {
+      color: #ffe8e8;
+      margin-bottom: 25px;
+    }
+
+    .promotion .btn {
+      background: white;
+      color: #d62828;
+    }
+
+    /* CONTATO */
+    .contact {
+      background: white;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .contact-card {
+      border: 1px solid #eee;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .contact-icon {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .contact-card p {
+      color: #777;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #171717;
+      color: white;
+      padding: 45px 25px 20px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #d62828;
+      margin-bottom: 15px;
+    }
+
+    .footer-content p {
+      color: #aaa;
+      line-height: 1.7;
+    }
+
+    .footer-content h3 {
+      margin-bottom: 15px;
+    }
+
+    .footer-content a {
+      display: block;
+      color: #aaa;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+
+    .footer-content a:hover {
+      color: white;
+    }
+
+    .copyright {
+      max-width: 1200px;
+      margin: 35px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 850px) {
+      nav {
+        display: none;
+      }
+
+      .pizza-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .navbar {
+        padding: 0 18px;
+      }
+
+      .header-button {
+        padding: 9px 12px;
+        font-size: 12px;
+      }
+
+      .hero {
+        min-height: 600px;
+      }
+
+      .hero h1 {
+        font-size: 43px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .pizza-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .about-text h2 {
+        font-size: 32px;
+      }
+
+      .promotion h2 {
+        font-size: 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        Pizza<span>House</span>
+      </div>
+
+      <nav>
+        <a href="#inicio">Início</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <a href="#cardapio" class="header-button">
+        Fazer pedido
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <small>Pizza feita com carinho</small>
+
+      <h1>
+        O sabor que transforma qualquer momento.
+      </h1>
+
+      <p>
+        Pizzas preparadas na hora, com ingredientes selecionados,
+        massa saborosa e aquele toque especial da nossa cozinha.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#cardapio" class="btn btn-primary">
+          Ver cardápio
+        </a>
+
+        <a href="#sobre" class="btn btn-secondary">
+          Conheça a pizzaria
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDÁPIO -->
+  <section class="menu" id="cardapio">
+    <div class="container">
+
+      <div class="section-title">
+        <span>Nosso cardápio</span>
+        <h2>Escolha sua pizza</h2>
+        <p>
+          Sabores clássicos e especiais preparados com ingredientes
+          de qualidade.
+        </p>
+      </div>
+
+      <div class="pizza-grid">
+
+        <article class="pizza-card">
+          <img
+            src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza Margherita"
+          >
+
+          <div class="pizza-info">
+            <h3>Margherita</h3>
+
+            <p>
+              Molho de tomate, muçarela, tomate e manjericão.
+            </p>
+
+            <div class="pizza-bottom">
+              <span class="price">R$ 39,90</span>
+              <a href="#" class="order">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pizza-card">
+          <img
+            src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza Calabresa"
+          >
+
+          <div class="pizza-info">
+            <h3>Calabresa</h3>
+
+            <p>
+              Muçarela, calabresa fatiada, cebola e orégano.
+            </p>
+
+            <div class="pizza-bottom">
+              <span class="price">R$ 42,90</span>
+              <a href="#" class="order">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pizza-card">
+          <img
+            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza de queijo"
+          >
+
+          <div class="pizza-info">
+            <h3>Quatro Queijos</h3>
+
+            <p>
+              Muçarela, provolone, parmesão e gorgonzola.
+            </p>
+
+            <div class="pizza-bottom">
+              <span class="price">R$ 46,90</span>
+              <a href="#" class="order">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pizza-card">
+          <img
+            src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza de frango"
+          >
+
+          <div class="pizza-info">
+            <h3>Frango com Catupiry</h3>
+
+            <p>
+              Frango desfiado, muçarela e cremoso Catupiry.
+            </p>
+
+            <div class="pizza-bottom">
+              <span class="price">R$ 44,90</span>
+              <a href="#" class="order">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pizza-card">
+          <img
+            src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza especial"
+          >
+
+          <div class="pizza-info">
+            <h3>Especial da Casa</h3>
+
+            <p>
+              Muçarela, presunto, bacon, milho e cebola.
+            </p>
+
+            <div class="pizza-bottom">
+              <span class="price">R$ 49,90</span>
+              <a href="#" class="order">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="pizza-card">
+          <img
+            src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza de pepperoni"
+          >
+
+          <div class="pizza-info">
+            <h3>Pepperoni</h3>
+
+            <p>
+              Molho especial, muçarela e pepperoni.
+            </p>
+
+            <div class="pizza-bottom">
+              <span class="price">R$ 47,90</span>
+              <a href="#" class="order">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="about" id="sobre">
+    <div class="container">
+
+      <div class="about-content">
+
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
+            alt="Pizza sendo preparada"
+          >
+        </div>
+
+        <div class="about-text">
+          <span>Sobre nós</span>
+
+          <h2>
+            Uma pizzaria simples, feita para você.
+          </h2>
+
+          <p>
+            Na Pizza House, acreditamos que uma boa pizza começa
+            com ingredientes de qualidade e uma massa preparada
+            com cuidado.
+          </p>
+
+          <p>
+            Nosso objetivo é oferecer uma experiência saborosa,
+            com atendimento próximo e preços justos para toda a família.
+          </p>
+
+          <div class="features">
+            <div class="feature">
+              <span>✓</span> Ingredientes selecionados
+            </div>
+
+            <div class="feature">
+              <span>✓</span> Massa fresca
+            </div>
+
+            <div class="feature">
+              <span>✓</span> Pedido rápido
+            </div>
+
+            <div class="feature">
+              <span>✓</span> Preço justo
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMOÇÃO -->
+  <section class="promotion">
+    <div class="container">
+
+      <h2>Pizza em família fica ainda melhor!</h2>
+
+      <p>
+        Faça seu pedido e aproveite nossas opções de pizzas
+        para compartilhar.
+      </p>
+
+      <a href="#cardapio" class="btn">
+        Conferir cardápio
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="contact" id="contato">
+    <div class="container">
+
+      <div class="section-title">
+        <span>Fale conosco</span>
+        <h2>Estamos esperando seu pedido</h2>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h3>Endereço</h3>
+          <p>
+            Rua das Pizzas, 123<br>
+            Centro - Sua Cidade
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h3>Telefone</h3>
+          <p>
+            (34) 99999-9999
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">🕐</div>
+          <h3>Horário</h3>
+          <p>
+            Terça a Domingo<br>
+            18h às 23h
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+
+      <div>
+        <div class="footer-logo">
+          PizzaHouse
+        </div>
+
+        <p>
+          Pizzas saborosas, atendimento de qualidade
+          e aquele sabor especial para deixar seu dia melhor.
+        </p>
+      </div>
+
+      <div>
+        <h3>Navegação</h3>
+        <a href="#inicio">Início</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#sobre">Sobre nós</a>
+        <a href="#contato">Contato</a>
+      </div>
+
+      <div>
+        <h3>Atendimento</h3>
+        <p>
+          Terça a Domingo<br>
+          18h às 23h
+        </p>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © 2026 PizzaHouse. Todos os direitos reservados.
+    </div>
+  </footer>
+
+</body>
+</html>
